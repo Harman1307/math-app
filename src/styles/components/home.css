@@ -1,0 +1,136 @@
+.home {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.user-info {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.level,
+.xp {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.level {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-color: transparent;
+}
+
+.selection {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.topic-grid button {
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    text-align: left;
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.2s;
+}
+
+.topic-grid button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--shadow);
+    border-color: var(--accent);
+}
+
+.topic-grid button.active {
+    background: var(--accent-muted);
+    border-color: var(--accent);
+}
+
+.topic-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+}
+
+.topic-stats {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.difficulty-buttons button {
+    padding: 1rem 2rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: capitalize;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.difficulty-buttons button:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.difficulty-buttons button.active {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-color: transparent;
+}
+
+.start-button {
+    margin-top: 2rem;
+    padding: 1.25rem 3rem;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-radius: 12px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    box-shadow: 0 4px 16px var(--shadow);
+    align-self: flex-start;
+}
+
+.start-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--shadow);
+    background: var(--accent-hover);
+}

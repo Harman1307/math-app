@@ -1,0 +1,187 @@
+:root {
+    --transition: 0.2s ease;
+}
+
+[data-theme="catppuccin-mocha"] {
+    --bg-primary: #1e1e2e;
+    --bg-secondary: #313244;
+    --bg-tertiary: #45475a;
+    --bg-elevated: #585b70;
+    
+    --text-primary: #cdd6f4;
+    --text-secondary: #bac2de;
+    --text-tertiary: #a6adc8;
+    --text-dim: #6c7086;
+    
+    --accent: #89b4fa;
+    --accent-hover: #74c7ec;
+    --accent-muted: rgba(137, 180, 250, 0.1);
+    
+    --success: #a6e3a1;
+    --warning: #f9e2af;
+    --error: #f38ba8;
+    
+    --border: #45475a;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="rose-pine"] {
+    --bg-primary: #191724;
+    --bg-secondary: #1f1d2e;
+    --bg-tertiary: #26233a;
+    --bg-elevated: #403d52;
+    
+    --text-primary: #e0def4;
+    --text-secondary: #c4c1db;
+    --text-tertiary: #908caa;
+    --text-dim: #6e6a86;
+    
+    --accent: #ebbcba;
+    --accent-hover: #f6c177;
+    --accent-muted: rgba(235, 188, 186, 0.1);
+    
+    --success: #9ccfd8;
+    --warning: #f6c177;
+    --error: #eb6f92;
+    
+    --border: #403d52;
+    --shadow: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="nord"] {
+    --bg-primary: #2e3440;
+    --bg-secondary: #3b4252;
+    --bg-tertiary: #434c5e;
+    --bg-elevated: #4c566a;
+    
+    --text-primary: #eceff4;
+    --text-secondary: #e5e9f0;
+    --text-tertiary: #d8dee9;
+    --text-dim: #81a1c1;
+    
+    --accent: #88c0d0;
+    --accent-hover: #8fbcbb;
+    --accent-muted: rgba(136, 192, 208, 0.1);
+    
+    --success: #a3be8c;
+    --warning: #ebcb8b;
+    --error: #bf616a;
+    
+    --border: #4c566a;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="gruvbox"] {
+    --bg-primary: #282828;
+    --bg-secondary: #3c3836;
+    --bg-tertiary: #504945;
+    --bg-elevated: #665c54;
+    
+    --text-primary: #ebdbb2;
+    --text-secondary: #d5c4a1;
+    --text-tertiary: #bdae93;
+    --text-dim: #928374;
+    
+    --accent: #83a598;
+    --accent-hover: #8ec07c;
+    --accent-muted: rgba(131, 165, 152, 0.1);
+    
+    --success: #b8bb26;
+    --warning: #fabd2f;
+    --error: #fb4934;
+    
+    --border: #504945;
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="everforest"] {
+    --bg-primary: #2b3339;
+    --bg-secondary: #323c41;
+    --bg-tertiary: #3a464c;
+    --bg-elevated: #475258;
+    
+    --text-primary: #d3c6aa;
+    --text-secondary: #c4b5a0;
+    --text-tertiary: #9da9a0;
+    --text-dim: #7a8478;
+    
+    --accent: #a7c080;
+    --accent-hover: #83c092;
+    --accent-muted: rgba(167, 192, 128, 0.1);
+    
+    --success: #a7c080;
+    --warning: #dbbc7f;
+    --error: #e67e80;
+    
+    --border: #475258;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="tokyo-night"] {
+    --bg-primary: #1a1b26;
+    --bg-secondary: #24283b;
+    --bg-tertiary: #414868;
+    --bg-elevated: #545c7e;
+    
+    --text-primary: #c0caf5;
+    --text-secondary: #a9b1d6;
+    --text-tertiary: #9aa5ce;
+    --text-dim: #565f89;
+    
+    --accent: #7aa2f7;
+    --accent-hover: #bb9af7;
+    --accent-muted: rgba(122, 162, 247, 0.1);
+    
+    --success: #9ece6a;
+    --warning: #e0af68;
+    --error: #f7768e;
+    
+    --border: #414868;
+    --shadow: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="ayu-mirage"] {
+    --bg-primary: #1f2430;
+    --bg-secondary: #232834;
+    --bg-tertiary: #2d3640;
+    --bg-elevated: #3e4b59;
+    
+    --text-primary: #cbccc6;
+    --text-secondary: #b8b9b4;
+    --text-tertiary: #8a8f98;
+    --text-dim: #5c6773;
+    
+    --accent: #73d0ff;
+    --accent-hover: #95e6cb;
+    --accent-muted: rgba(115, 208, 255, 0.1);
+    
+    --success: #bae67e;
+    --warning: #ffd580;
+    --error: #f28779;
+    
+    --border: #3e4b59;
+    --shadow: rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="solarized-light"] {
+    --bg-primary: #fdf6e3;
+    --bg-secondary: #eee8d5;
+    --bg-tertiary: #e4ddc5;
+    --bg-elevated: #d9d2ba;
+    
+    --text-primary: #586e75;
+    --text-secondary: #657b83;
+    --text-tertiary: #839496;
+    --text-dim: #93a1a1;
+    
+    --accent: #268bd2;
+    --accent-hover: #2aa198;
+    --accent-muted: rgba(38, 139, 210, 0.1);
+    
+    --success: #859900;
+    --warning: #b58900;
+    --error: #dc322f;
+    
+    --border: #d9d2ba;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
