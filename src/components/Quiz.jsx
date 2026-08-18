@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import useStore from '../store/useStore'
 import { generateQuestions } from '../generators'
+import GeometryVisual from './GeometryVisual'
 import '../styles/components/quiz.css'
 
 function Quiz() {
@@ -9,7 +10,7 @@ function Quiz() {
     const setView = useStore(state => state.setView)
     const addXP = useStore(state => state.addXP)
     const recordAnswer = useStore(state => state.recordAnswer)
-    
+
     const [questions, setQuestions] = useState([])
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [selectedAnswer, setSelectedAnswer] = useState(null)
@@ -37,7 +38,7 @@ function Quiz() {
         if (selectedAnswer === null) return
 
         const isCorrect = selectedAnswer === currentQuestion.correctAnswer
-        const newUserAnswers = [...userAnswers, { 
+        const newUserAnswers = [...userAnswers, {
             questionId: currentQuestion.id,
             selected: selectedAnswer,
             correct: isCorrect
@@ -73,7 +74,9 @@ function Quiz() {
 
             <div className="question-container">
                 <h2 className="question">{currentQuestion.question}</h2>
-                
+
+                <GeometryVisual visualData={currentQuestion.visual} />
+
                 <div className="options">
                     {currentQuestion.options.map((option, index) => (
                         <button
@@ -88,7 +91,7 @@ function Quiz() {
             </div>
 
             <div className="quiz-footer">
-                <button 
+                <button
                     className="next-button"
                     onClick={handleNext}
                     disabled={selectedAnswer === null}
