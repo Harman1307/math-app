@@ -1,45 +1,89 @@
 import useStore from '../store/useStore'
+import ThemeDropdown from './ThemeDropdown'
 import '../styles/components/results.css'
 
-function Results() {
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0')
+    const s = (seconds % 60).toString().padStart(2, '0')
+    return `${m}:${s}`
+}
+
+export default function Results() {
     const setView = useStore(state => state.setView)
-    const topics = useStore(state => state.topics)
-    const currentTopic = useStore(state => state.currentTopic)
+    const stats = useStore(state => state.sessionStats)
 
-    const topicData = topics[currentTopic]
+    if (!stats) return null
 
-    const handleGoHome = () => {
-        setView('home')
-    }
+    const correct = stats.answers.filter(a => a.isCorrect).length
+    const total = stats.answers.length
+    const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0
 
     return (
         <div className="results">
-            <h1>Quiz Complete!</h1>
-
-            <div className="stats">
-                <div className="stat">
-                    <div className="stat-label">Topic Level</div>
-                    <div className="stat-value">{topicData.level}</div>
-                </div>
-                <div className="stat">
-                    <div className="stat-label">Topic XP</div>
-                    <div className="stat-value">{topicData.xp}</div>
-                </div>
-                <div className="stat">
-                    <div className="stat-label">Accuracy</div>
-                    <div className="stat-value">
-                        {topicData.questionsAnswered > 0
-                            ? Math.round((topicData.questionsCorrect / topicData.questionsAnswered) * 100)
-                            : 0}%
-                    </div>
-                </div>
+            <div className="results-topbar">
+                <ThemeDropdown />
             </div>
 
-            <button className="home-button" onClick={handleGoHome}>
-                Back to Home
-            </button>
+            <div className="results-content fade-up">
+                <h2 className="results-title">Session Complete</h2>
+
+                <div className="stats-row">
+                    <div className="stat-card">
+                        <span className="stat-value">{accuracy}%</span>
+                        <span className="stat-label">Accuracy</span>
+                    </div>
+                    <div className="stat-card">
+                        <span className="stat-value mono">{formatTime(stats.time)}</span>
+                        <span className="stat-label">Time</span>
+                    </div>
+                    <div className="stat-card">
+                        <span className="stat-value">{correct}/{total}</span>
+                        <span className="stat-label">Correct</span>
+                    </div>
+                </div>
+
+                {total > 0 && (
+                    <div className="review-section">
+                        <h3 className="review-heading">Review</h3>
+                        <div className="review-list">
+                            {stats.answers.map((item, i) => (
+                                <div
+                                    key={i}
+                                    className={`review-card ${item.isCorrect ? 'is-correct' : 'is-wrong'}`}
+                                >
+                                    <div className="review-top">
+                                        <span className="review-num">Q{i + 1}</span>
+                                        <span className="review-badge">
+                                            {item.isCorrect ? '✓ Correct' : '✗ Incorrect'}
+                                        </span>
+                                    </div>
+                                    <p className="review-question">{item.question.question}</p>
+                                    <div className="review-answers">
+                                        <div className={`review-answer ${item.isCorrect ? 'text-correct' : 'text-wrong'}`}>
+                                            <span className="answer-label">Your answer</span>
+                                            <span className="answer-value">
+                                                {item.question.options[item.selected]}
+                                            </span>
+                                        </div>
+                                        {!item.isCorrect && (
+                                            <div className="review-answer text-correct">
+                                                <span className="answer-label">Correct answer</span>
+                                                <span className="answer-value">
+                                                    {item.question.options[item.question.correctAnswer]}
+                                                </span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                <button className="start-btn" onClick={() => setView('home')}>
+                    New Session
+                </button>
+            </div>
         </div>
     )
 }
-
-export default Results

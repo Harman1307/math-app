@@ -1,77 +1,112 @@
-import useStore from '../store/useStore'
-import { TOPICS } from '../store/useStore'
+import { useState } from 'react'
+import useStore, { TOPICS, DIFFICULTIES } from '../store/useStore'
+import ThemeDropdown from './ThemeDropdown'
 import '../styles/components/home.css'
 
-function Home() {
-    const user = useStore(state => state.user)
-    const topics = useStore(state => state.topics)
-    const currentTopic = useStore(state => state.currentTopic)
-    const currentDifficulty = useStore(state => state.currentDifficulty)
-    const setTopic = useStore(state => state.setTopic)
-    const setDifficulty = useStore(state => state.setDifficulty)
-    const setView = useStore(state => state.setView)
+const QUESTION_COUNTS = [5, 10, 25, 50]
+const TIMER_OPTIONS = [1, 3, 5, 10]
 
-    const handleStart = () => {
-        if (!currentTopic) return
-        setView('quiz')
-    }
-
-    const difficulties = ['easy', 'medium', 'hard', 'expert']
+export default function Home() {
+    const {
+        currentTopic, setTopic,
+        currentDifficulty, setDifficulty,
+        sessionMode, setSessionMode,
+        questionCount, setQuestionCount,
+        timerDuration, setTimerDuration,
+        setView
+    } = useStore()
 
     return (
         <div className="home">
-            <div className="header">
-                <h1>Math Game</h1>
-                <div className="user-info">
-                    <div className="level">Level {user.overallLevel}</div>
-                    <div className="xp">{user.totalXP} XP</div>
-                </div>
+            <div className="home-topbar">
+                <ThemeDropdown />
             </div>
 
-            <div className="selection">
-                <div className="section">
-                    <h2>Choose Topic</h2>
-                    <div className="topic-grid">
-                        {TOPICS.map(topic => (
+            <div className="home-content fade-up">
+                <div className="home-card">
+                    <div className="config-block">
+                        <label className="config-label">Topic</label>
+                        <div className="pill-group">
+                            {TOPICS.map(t => (
+                                <button
+                                    key={t}
+                                    className={`pill-btn ${currentTopic === t ? 'active' : ''}`}
+                                    onClick={() => setTopic(t)}
+                                >
+                                    {t}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="config-divider" />
+
+                    <div className="config-block">
+                        <label className="config-label">Difficulty</label>
+                        <div className="pill-group">
+                            {DIFFICULTIES.map(d => (
+                                <button
+                                    key={d}
+                                    className={`pill-btn ${currentDifficulty === d ? 'active' : ''}`}
+                                    onClick={() => setDifficulty(d)}
+                                >
+                                    {d}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="config-divider" />
+
+                    <div className="config-block">
+                        <label className="config-label">Mode</label>
+                        <div className="mode-tabs">
                             <button
-                                key={topic}
-                                className={currentTopic === topic ? 'active' : ''}
-                                onClick={() => setTopic(topic)}
+                                className={`mode-tab ${sessionMode === 'questions' ? 'active' : ''}`}
+                                onClick={() => setSessionMode('questions')}
                             >
-                                <div className="topic-name">{topic}</div>
-                                <div className="topic-stats">
-                                    Level {topics[topic].level}
-                                </div>
+                                Questions
                             </button>
-                        ))}
+                            <button
+                                className={`mode-tab ${sessionMode === 'timed' ? 'active' : ''}`}
+                                onClick={() => setSessionMode('timed')}
+                            >
+                                Timed
+                            </button>
+                        </div>
+
+                        {sessionMode === 'questions' ? (
+                            <div className="pill-group" style={{ marginTop: '1rem' }}>
+                                {QUESTION_COUNTS.map(c => (
+                                    <button
+                                        key={c}
+                                        className={`pill-btn ${questionCount === c ? 'active' : ''}`}
+                                        onClick={() => setQuestionCount(c)}
+                                    >
+                                        {c}
+                                    </button>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="pill-group" style={{ marginTop: '1rem' }}>
+                                {TIMER_OPTIONS.map(m => (
+                                    <button
+                                        key={m}
+                                        className={`pill-btn ${timerDuration === m ? 'active' : ''}`}
+                                        onClick={() => setTimerDuration(m)}
+                                    >
+                                        {m} min
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                <div className="section">
-                    <h2>Choose Difficulty</h2>
-                    <div className="difficulty-buttons">
-                        {difficulties.map(diff => (
-                            <button
-                                key={diff}
-                                className={currentDifficulty === diff ? 'active' : ''}
-                                onClick={() => setDifficulty(diff)}
-                            >
-                                {diff}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                <button
-                    className="start-button"
-                    onClick={handleStart}
-                    disabled={!currentTopic}
-                >
-                    Start Quiz
+                <button className="start-btn" onClick={() => setView('quiz')}>
+                    Begin Session
                 </button>
             </div>
         </div>
     )
 }
-
-export default Home

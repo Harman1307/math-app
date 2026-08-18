@@ -1,12 +1,13 @@
 import { generateArithmetic } from './arithmetic'
 import { generateAlgebra } from './algebra'
 import { generateGeometry } from './geometry'
+import { generateTrigonometry } from './trigonometry.js'
 
 const generators = {
     arithmetic: generateArithmetic,
     algebra: generateAlgebra,
     geometry: generateGeometry,
-    trigonometry: generateArithmetic,
+    trigonometry: generateTrigonometry,
     statistics: generateArithmetic,
     probability: generateArithmetic,
     calculus: generateArithmetic,
