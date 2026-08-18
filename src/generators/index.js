@@ -1,8 +1,9 @@
 import { generateArithmetic } from './arithmetic'
+import { generateAlgebra } from './algebra'
 
 const generators = {
     arithmetic: generateArithmetic,
-    algebra: generateArithmetic,
+    algebra: generateAlgebra,
     geometry: generateArithmetic,
     trigonometry: generateArithmetic,
     statistics: generateArithmetic,
