@@ -89,16 +89,19 @@ export default function Quiz() {
 
         if (correct) {
             setIsCorrect(true)
+
             const newAnswer = {
                 question: currentQuestion,
                 selected: index,
                 isCorrect: firstTryCorrect
             }
-            const updated = [...userAnswers, newAnswer]
-            setUserAnswers(updated)
+
+            // Build the updated array locally so we can pass it directly
+            const updatedAnswers = [...userAnswers, newAnswer]
+            setUserAnswers(updatedAnswers)
 
             if (sessionMode === 'questions' && currentIndex + 1 >= questionCount) {
-                setTimeout(() => finishSession(updated), 600)
+                setTimeout(() => finishSession(updatedAnswers), 600)
             }
         } else {
             setFirstTryCorrect(false)

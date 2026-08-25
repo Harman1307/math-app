@@ -77,12 +77,12 @@ function buildOptions(correct, distractors) {
             const offsets = [1, -1, 2, -2, 5, -5, 10, -10]
             const offset = offsets[randomInt(0, offsets.length - 1)]
             fallback = correct + offset
-            
+
             if (!Number.isInteger(correct)) {
                 fallback = parseFloat(fallback.toFixed(2))
             }
         }
-        
+
         if (fallback !== correct && !uniqueList.includes(fallback)) {
             uniqueList.push(fallback)
         }
@@ -179,7 +179,7 @@ const easyTemplates = [
     () => {
         const a = randomInt(3, 18)
         const b = randomInt(5, 25)
-        const answer = Math.abs(b - a) + 2 
+        const answer = Math.abs(b - a) + 2
         const c = answer + a
         return {
             question: `Solve for x: x + ${a} = ${c}`,
@@ -392,10 +392,10 @@ const mediumTemplates = [
         const solY = randomInt(3, 9)
         const eq1 = a * solX + b * solY
         const eq2 = c * solX + (a + b) * solY
-        
+
         // Prevent systems with infinite or zero solutions
-        if (a * (a + b) - b * c === 0) return null 
-        
+        if (a * (a + b) - b * c === 0) return null
+
         return {
             question: `Solve the system: ${a}x + ${b}y = ${eq1}, ${c}x + ${a + b}y = ${eq2}. Find x.`,
             answer: solX,
@@ -482,10 +482,10 @@ const mediumTemplates = [
         const b = randomInt(2, 5)
         const posAnswer = randomInt(4, 10)
         const c = a * posAnswer - b
-        
+
         // Prevent multiple positive solutions: x = (c+b)/a and x = (b-c)/a
         if (c < b) return null
-        
+
         return {
             question: `Solve: |${a}x - ${b}| = ${c}. What is the positive solution?`,
             answer: posAnswer,
@@ -497,10 +497,10 @@ const mediumTemplates = [
         const b = randomInt(2, 5)
         const answer = randomInt(6, 12)
         const d = a * (answer - b) * (answer - b)
-        
+
         // Ensure the second root (2b - answer) is strictly negative
         if (answer <= 2 * b) return null
-        
+
         return {
             question: `Solve: ${a}(x - ${b})² = ${d}. Find the positive solution.`,
             answer,
@@ -641,7 +641,7 @@ const hardTemplates = [
     () => {
         const a = randomInt(2, 5)
         const b = randomInt(2, 8)
-        
+
         // Constructive generation for inverse evaluation
         const ans = randomInt(-5, 5)
         const val = a * ans + b
@@ -788,8 +788,8 @@ const hardTemplates = [
             question: `Expand (x + ${a})³ completely.`,
             answer,
             options: buildOptions(answer, [
-                `x³ + ${a}x² + ${a * a}x + ${Math.pow(a, 3)}`, 
-                `x³ + ${Math.pow(a, 3)}`, 
+                `x³ + ${a}x² + ${a * a}x + ${Math.pow(a, 3)}`,
+                `x³ + ${Math.pow(a, 3)}`,
                 `x³ + ${3 * a}x² + ${a * a}x + ${Math.pow(a, 3)}`
             ])
         }
@@ -1153,7 +1153,7 @@ const expertTemplates = [
         const b = randomInt(-5, 5)
         const isFactor = Math.random() > 0.5
         const d = isFactor ? -(a * b) : -(a * b) + randomInt(1, 5)
-        
+
         return {
             question: `Is (x - ${a}) a factor of x³ - ${a}x² ${formatSign(b)}x ${formatSign(d)}?`,
             answer: isFactor ? 'Yes' : 'No',
@@ -1192,7 +1192,7 @@ const expertTemplates = [
     () => {
         const a = randomInt(2, 5)
         const ans = randomInt(4, 9)
-        const k = randomInt(1, ans - 2) 
+        const k = randomInt(1, ans - 2)
         const rhs = ans * (ans - k)
         return {
             question: `Solve for x: log_${a}(x) + log_${a}(x - ${k}) = log_${a}(${rhs})`,
@@ -1258,12 +1258,12 @@ function generateFromTemplates(templates, difficulty) {
     for (let attempt = 0; attempt < 20; attempt++) {
         const template = templates[randomInt(0, templates.length - 1)]
         const q = template()
-        
+
         if (q && q.options && q.options.length === 4 && q.options.includes(q.answer)) {
             return q
         }
     }
-    
+
     // Deterministic safe fallbacks based on difficulty to avoid breaking the curve
     const fallbacks = {
         easy: { question: "Solve for x: x + 2 = 4", answer: 2, options: [2, 4, 0, 6] },

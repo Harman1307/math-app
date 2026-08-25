@@ -4,14 +4,13 @@ import { persist } from 'zustand/middleware'
 export const TOPICS = ['arithmetic', 'algebra', 'geometry', 'trigonometry']
 export const DIFFICULTIES = ['easy', 'medium', 'hard', 'expert']
 export const THEMES = [
-    'rose-pine',
-    'catppuccin-mocha',
-    'tokyo-night',
-    'nord',
-    'gruvbox',
-    'ayu-mirage',
-    'everforest',
-    'solarized-light'
+    'rose-pine', 'catppuccin-mocha', 'tokyo-night', 'tokyo-night-storm',
+    'nord', 'gruvbox', 'gruvbox-material', 'everforest', 'ayu-mirage',
+    'dracula', 'dracula-soft', 'one-dark', 'kanagawa', 'kanagawa-dragon',
+    'monokai', 'material-dark', 'night-owl', 'moonlight', 'poimandres',
+    'ember', 'synthwave-84', 'cyberpunk',
+    'solarized-light', 'one-light', 'github-light', 'catppuccin-latte',
+    'everforest-light', 'nord-light', 'rose-pine-dawn'
 ]
 
 const useStore = create(

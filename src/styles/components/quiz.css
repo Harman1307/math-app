@@ -11,22 +11,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 1.5rem;
+    flex-shrink: 0;
 }
 
 .quiz-meta {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .timer-pill {
     background: var(--accent-muted);
     color: var(--accent);
     border: 1px solid var(--accent);
-    padding: 0.4rem 1rem;
+    padding: 0.35rem 0.875rem;
     border-radius: 100px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     transition: all 0.3s ease;
@@ -48,21 +50,22 @@
     background: var(--bg-secondary);
     color: var(--text-secondary);
     border: 1px solid var(--border);
-    padding: 0.4rem 1rem;
+    padding: 0.35rem 0.875rem;
     border-radius: 100px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
 }
 
 .timer-dim {
     color: var(--text-dim);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .progress-track {
     height: 3px;
     background: var(--bg-secondary);
     width: 100%;
+    flex-shrink: 0;
 }
 
 .progress-thumb {
@@ -77,23 +80,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3rem 2rem 2rem;
-    gap: 2.5rem;
+    padding: 2.5rem 1.5rem 1.5rem;
+    gap: 2rem;
 }
 
 .question-text {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
     line-height: 1.5;
     max-width: 560px;
+    width: 100%;
     color: var(--text-primary);
 }
 
 .options-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 0.875rem;
     width: 100%;
     max-width: 560px;
 }
@@ -101,19 +105,21 @@
 .option-card {
     background: var(--bg-secondary);
     border: 2px solid var(--border);
-    padding: 1.25rem 1rem;
+    padding: 1.1rem 0.875rem;
     border-radius: 16px;
     color: var(--text-primary);
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     text-align: center;
     box-shadow: 0 2px 8px var(--shadow);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    min-height: 72px;
+    min-height: 68px;
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1.3;
+    word-break: break-word;
 }
 
 .option-card:hover:not(:disabled) {
@@ -157,8 +163,9 @@
 .quiz-footer {
     position: sticky;
     bottom: 0;
-    padding: 1.5rem 2rem;
-    background: linear-gradient(to top, var(--bg-primary) 80%, transparent);
+    padding: 1rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, var(--bg-primary) 75%, transparent);
+    flex-shrink: 0;
 }
 
 .feedback-bar {
@@ -167,11 +174,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.5rem;
+    padding: 0.875rem 1.25rem;
     border-radius: 16px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
     animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    gap: 1rem;
 }
 
 .correct-feedback {
@@ -184,12 +192,14 @@
     background: var(--success);
     color: var(--bg-primary);
     border: none;
-    padding: 0.6rem 1.5rem;
+    padding: 0.55rem 1.25rem;
     border-radius: 100px;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .next-btn:hover {
@@ -197,11 +207,69 @@
     opacity: 0.9;
 }
 
-@media (max-width: 500px) {
+/* Tablet and below */
+@media (max-width: 600px) {
+    .quiz-topbar {
+        padding: 1rem;
+    }
+
+    .quiz-body {
+        padding: 1.75rem 1rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .question-text {
+        font-size: 1.25rem;
+    }
+
+    .options-grid {
+        gap: 0.75rem;
+    }
+
+    .option-card {
+        padding: 1rem 0.75rem;
+        font-size: 0.95rem;
+        min-height: 60px;
+    }
+
+    .quiz-footer {
+        padding: 0.75rem 1rem 1rem;
+    }
+
+    .feedback-bar {
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Small phones - stack options vertically */
+@media (max-width: 430px) {
     .options-grid {
         grid-template-columns: 1fr;
     }
+
+    .option-card {
+        min-height: 54px;
+    }
+
     .question-text {
-        font-size: 1.3rem;
+        font-size: 1.15rem;
+    }
+
+    .timer-dim {
+        display: none;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 320px) {
+    .question-text {
+        font-size: 1.05rem;
+    }
+
+    .timer-pill,
+    .counter-pill {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.7rem;
     }
 }
