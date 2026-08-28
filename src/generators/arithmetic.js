@@ -330,7 +330,7 @@ const mediumTemplates = [
         const remainingWork = 1 - workDoneByA
         const daysBRemaining = totalDays - daysWorked
         const bRate = remainingWork / daysBRemaining
-        const bDays = parseFloat((1 / bRate).toFixed(2)) // Exact floating answer
+        const bDays = parseFloat((1 / bRate).toFixed(2)) 
 
         if (bDays <= 0 || !isFinite(bDays)) return null
 
@@ -344,7 +344,7 @@ const mediumTemplates = [
         const fillTime = randomInt(4, 12)
         const drainTime = randomInt(fillTime + 4, fillTime + 12)
         const netRate = (drainTime - fillTime) / (fillTime * drainTime)
-        const answer = parseFloat((1 / netRate).toFixed(2)) // Exact floating answer
+        const answer = parseFloat((1 / netRate).toFixed(2)) 
         return {
             question: `Pipe A fills a tank in ${fillTime} hours. Pipe B drains it in ${drainTime} hours. Both open together, when does the tank fill? (Round to 2 decimal places)`,
             answer,
@@ -398,7 +398,7 @@ const mediumTemplates = [
         }
     },
     () => {
-        const cp = randomInt(2, 8) * 100 // Clean integer
+        const cp = randomInt(2, 8) * 100 
         const markup = randomInt(20, 50)
         const discount = randomInt(5, 20)
         const markedPrice = cp * (1 + markup / 100)
@@ -411,7 +411,6 @@ const mediumTemplates = [
         }
     },
     () => {
-        // Constructive generation for exactness
         const cp = randomInt(2, 8) * 100
         const profitPercent = [10, 20, 25, 30][randomInt(0, 3)]
         const sp = cp * (1 + profitPercent / 100)
@@ -430,7 +429,7 @@ const mediumTemplates = [
         const profit = randomInt(10, 30) * 1000
         const share1 = invest1 * months1
         const share2 = invest2 * months2
-        const answer = parseFloat(((share1 * profit) / (share1 + share2)).toFixed(2)) // Handled exactly
+        const answer = parseFloat(((share1 * profit) / (share1 + share2)).toFixed(2)) 
         const wrongShare = parseFloat(((invest1 * profit) / (invest1 + invest2)).toFixed(2))
         return {
             question: `A invests ₹${invest1} for ${months1} months, B invests ₹${invest2} for ${months2} months. Total profit is ₹${profit}. A's share? (Round to 2 decimal places if needed)`,
@@ -508,7 +507,7 @@ const mediumTemplates = [
         const time = randomInt(2, 5)
         const si = (principal * rate * time) / 100
         const ci = principal * Math.pow(1 + rate / 100, time) - principal
-        const diff = parseFloat((ci - si).toFixed(2)) // Precise difference calculation
+        const diff = parseFloat((ci - si).toFixed(2)) 
         return {
             question: `Principal ₹${principal}, Rate ${rate}%, Time ${time} years. Difference between CI and SI? (Round to 2 decimal places)`,
             answer: diff,
@@ -519,7 +518,7 @@ const mediumTemplates = [
         const principal = randomInt(5, 20) * 1000
         const rate = randomInt(4, 12)
         const time = randomInt(2, 4)
-        const amount = parseFloat((principal * Math.pow(1 + rate / 100, time)).toFixed(2)) // Keep precise
+        const amount = parseFloat((principal * Math.pow(1 + rate / 100, time)).toFixed(2)) 
         const wrongAmount = parseFloat((principal + (principal * rate * time) / 100).toFixed(2))
         return {
             question: `₹${principal} invested at ${rate}% compound interest for ${time} years. Final amount? (Round to 2 decimal places)`,
@@ -625,7 +624,7 @@ const hardTemplates = [
         const trainLength = randomInt(100, 400)
         const speed = randomInt(54, 108)
         const speedMs = speed * 1000 / 3600
-        const time = parseFloat((trainLength / speedMs).toFixed(2)) // Exact floating answer
+        const time = parseFloat((trainLength / speedMs).toFixed(2)) 
         const wrongTime = parseFloat((trainLength / speed).toFixed(2))
         return {
             question: `A ${trainLength}m train travels at ${speed} km/h. How many seconds to cross a pole? (Round to 2 decimal places)`,
@@ -639,7 +638,7 @@ const hardTemplates = [
         const speed1 = randomInt(54, 90)
         const speed2 = randomInt(54, 90)
         const relativeSpeed = (speed1 + speed2) * 1000 / 3600
-        const time = parseFloat(((train1 + train2) / relativeSpeed).toFixed(2)) // Exact floating answer
+        const time = parseFloat(((train1 + train2) / relativeSpeed).toFixed(2)) 
         const wrongRelative = parseFloat(((train1 + train2) / (Math.abs(speed1 - speed2) * 1000 / 3600)).toFixed(2))
         return {
             question: `Two trains of length ${train1}m and ${train2}m approach each other at ${speed1} km/h and ${speed2} km/h. Time to pass each other (seconds)? (Round to 2 decimal places)`,

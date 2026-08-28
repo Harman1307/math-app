@@ -159,7 +159,6 @@
     }
 }
 
-/* Small phones */
 @media (max-width: 380px) {
     .home-topbar {
         padding: 1rem;

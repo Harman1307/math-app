@@ -66,7 +66,6 @@ export default function Quiz() {
         setView('results')
     }
 
-    // Keeps question pool full for timed mode
     useEffect(() => {
         if (sessionMode === 'timed' && questions.length - currentIndex < 5) {
             const more = generateQuestions(currentTopic, currentDifficulty, BATCH_SIZE)
@@ -96,7 +95,6 @@ export default function Quiz() {
                 isCorrect: firstTryCorrect
             }
 
-            // Build the updated array locally so we can pass it directly
             const updatedAnswers = [...userAnswers, newAnswer]
             setUserAnswers(updatedAnswers)
 

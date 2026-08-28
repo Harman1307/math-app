@@ -207,7 +207,6 @@
     opacity: 0.9;
 }
 
-/* Tablet and below */
 @media (max-width: 600px) {
     .quiz-topbar {
         padding: 1rem;
@@ -242,7 +241,6 @@
     }
 }
 
-/* Small phones - stack options vertically */
 @media (max-width: 430px) {
     .options-grid {
         grid-template-columns: 1fr;
@@ -261,7 +259,6 @@
     }
 }
 
-/* Very small phones */
 @media (max-width: 320px) {
     .question-text {
         font-size: 1.05rem;

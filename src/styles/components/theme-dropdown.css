@@ -53,7 +53,6 @@
     transform: rotate(180deg);
 }
 
-/* Desktop panel */
 .theme-panel {
     position: absolute;
     top: calc(100% + 10px);
@@ -178,7 +177,6 @@
     font-weight: 700;
 }
 
-/* Tablet: slide up from bottom as a sheet */
 @media (max-width: 600px) {
     .theme-trigger span:not(.sr-only) {
         display: none;
@@ -224,7 +222,6 @@
     }
 }
 
-/* Small phones: 3 columns so cards aren't too squished */
 @media (max-width: 380px) {
     .theme-cards-grid {
         grid-template-columns: repeat(3, 1fr);

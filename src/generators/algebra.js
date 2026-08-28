@@ -64,7 +64,6 @@ function buildOptions(correct, distractors) {
     while (uniqueList.length < 3 && attempts < 50) {
         let fallback
         if (typeof correct === 'string') {
-            // Intelligently tweak numbers inside strings (e.g. "(x - 4)" -> "(x - 5)")
             fallback = correct.replace(/\d+/g, (match) => {
                 const val = parseInt(match, 10)
                 const offset = randomInt(1, 3) * (Math.random() > 0.5 ? 1 : -1)
@@ -393,7 +392,6 @@ const mediumTemplates = [
         const eq1 = a * solX + b * solY
         const eq2 = c * solX + (a + b) * solY
 
-        // Prevent systems with infinite or zero solutions
         if (a * (a + b) - b * c === 0) return null
 
         return {
@@ -483,7 +481,6 @@ const mediumTemplates = [
         const posAnswer = randomInt(4, 10)
         const c = a * posAnswer - b
 
-        // Prevent multiple positive solutions: x = (c+b)/a and x = (b-c)/a
         if (c < b) return null
 
         return {
@@ -498,7 +495,6 @@ const mediumTemplates = [
         const answer = randomInt(6, 12)
         const d = a * (answer - b) * (answer - b)
 
-        // Ensure the second root (2b - answer) is strictly negative
         if (answer <= 2 * b) return null
 
         return {
@@ -642,7 +638,6 @@ const hardTemplates = [
         const a = randomInt(2, 5)
         const b = randomInt(2, 8)
 
-        // Constructive generation for inverse evaluation
         const ans = randomInt(-5, 5)
         const val = a * ans + b
         return {
@@ -663,7 +658,6 @@ const hardTemplates = [
     },
     () => {
         const a = randomInt(2, 4)
-        // Ensure vertex is clean integer
         const bMultiplier = randomInt(-3, 3) || 1
         const b = 2 * a * bMultiplier
         const c = randomInt(-10, 10)
@@ -1109,7 +1103,7 @@ const expertTemplates = [
     () => {
         const a = randomInt(2, 5)
         const b = randomInt(2, 5)
-        const n = randomInt(2, 4) * 2 // Force even exponent for exactly 1 middle term
+        const n = randomInt(2, 4) * 2 
         const r = n / 2
         const coeff = factorial(n) / (factorial(r) * factorial(n - r))
         const answer = coeff * Math.pow(a, n - r) * Math.pow(b, r)
@@ -1122,10 +1116,10 @@ const expertTemplates = [
     () => {
         const a = randomInt(1, 4)
         const k = randomInt(2, 4)
-        const b = a * k * k // Ensures a*b is a perfect square
+        const b = a * k * k 
         return {
             question: `Given AM-GM inequality, what is the minimum value of ${a}/x + ${b}x for x > 0?`,
-            answer: 2 * Math.sqrt(a * b), // Clean integer
+            answer: 2 * Math.sqrt(a * b), 
             options: buildOptions(2 * Math.sqrt(a * b), [a + b, a * b, Math.sqrt(a * b)])
         }
     },
@@ -1264,7 +1258,6 @@ function generateFromTemplates(templates, difficulty) {
         }
     }
 
-    // Deterministic safe fallbacks based on difficulty to avoid breaking the curve
     const fallbacks = {
         easy: { question: "Solve for x: x + 2 = 4", answer: 2, options: [2, 4, 0, 6] },
         medium: { question: "Factor: x² - 4", answer: "(x - 2)(x + 2)", options: ["(x - 2)(x + 2)", "(x - 4)(x + 1)", "x(x - 4)", "(x - 2)²"] },
