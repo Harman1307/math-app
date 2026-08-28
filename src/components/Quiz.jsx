@@ -28,8 +28,14 @@ export default function Quiz() {
     const [firstTryCorrect, setFirstTryCorrect] = useState(true)
     const [userAnswers, setUserAnswers] = useState([])
     const [time, setTime] = useState(sessionMode === 'timed' ? timerDuration * 60 : 0)
-    const [answeredThisQuestion, setAnsweredThisQuestion] = useState(false)
+
+    const userAnswersRef = useRef([])
     const timerRef = useRef(null)
+    const sessionFinishedRef = useRef(false)
+
+    useEffect(() => {
+        userAnswersRef.current = userAnswers
+    }, [userAnswers])
 
     useEffect(() => {
         const initial = generateQuestions(currentTopic, currentDifficulty, BATCH_SIZE)
@@ -40,31 +46,38 @@ export default function Quiz() {
         if (sessionMode === 'timed') {
             timerRef.current = setInterval(() => {
                 setTime(t => {
-                    if (t <= 1) {
+                    const next = t - 1
+                    if (next <= 0) {
                         clearInterval(timerRef.current)
-                        finishSession()
                         return 0
                     }
-                    return t - 1
+                    return next
                 })
             }, 1000)
         } else {
-            timerRef.current = setInterval(() => setTime(t => t + 1), 1000)
+            timerRef.current = setInterval(() => {
+                setTime(t => t + 1)
+            }, 1000)
         }
+
         return () => clearInterval(timerRef.current)
     }, [])
 
-    const finishSession = (finalAnswers = userAnswers) => {
-        clearInterval(timerRef.current)
-        setSessionStats({
-            answers: finalAnswers,
-            time: sessionMode === 'timed' ? timerDuration * 60 : time,
-            topic: currentTopic,
-            difficulty: currentDifficulty,
-            mode: sessionMode
-        })
-        setView('results')
-    }
+    useEffect(() => {
+        if (sessionMode === 'timed' && time === 0 && questions.length > 0) {
+            if (!sessionFinishedRef.current) {
+                sessionFinishedRef.current = true
+                setSessionStats({
+                    answers: userAnswersRef.current,
+                    time: timerDuration * 60,
+                    topic: currentTopic,
+                    difficulty: currentDifficulty,
+                    mode: sessionMode
+                })
+                setView('results')
+            }
+        }
+    }, [time, sessionMode, questions.length])
 
     useEffect(() => {
         if (sessionMode === 'timed' && questions.length - currentIndex < 5) {
@@ -95,11 +108,25 @@ export default function Quiz() {
                 isCorrect: firstTryCorrect
             }
 
-            const updatedAnswers = [...userAnswers, newAnswer]
+            const updatedAnswers = [...userAnswersRef.current, newAnswer]
             setUserAnswers(updatedAnswers)
+            userAnswersRef.current = updatedAnswers
 
             if (sessionMode === 'questions' && currentIndex + 1 >= questionCount) {
-                setTimeout(() => finishSession(updatedAnswers), 600)
+                clearInterval(timerRef.current)
+                setTimeout(() => {
+                    if (!sessionFinishedRef.current) {
+                        sessionFinishedRef.current = true
+                        setSessionStats({
+                            answers: updatedAnswers,
+                            time: time,
+                            topic: currentTopic,
+                            difficulty: currentDifficulty,
+                            mode: sessionMode
+                        })
+                        setView('results')
+                    }
+                }, 600)
             }
         } else {
             setFirstTryCorrect(false)
@@ -116,15 +143,13 @@ export default function Quiz() {
         setSelectedAnswer(null)
         setIsCorrect(null)
         setFirstTryCorrect(true)
-        setAnsweredThisQuestion(false)
     }
 
     const getOptionClass = (index) => {
         const classes = ['option-card']
 
         if (shakingIndex === index) {
-            classes.push('shake')
-            classes.push('incorrect')
+            classes.push('shake', 'incorrect')
             return classes.join(' ')
         }
 
@@ -133,10 +158,14 @@ export default function Quiz() {
             return classes.join(' ')
         }
 
-        if (selectedAnswer === index && !isCorrect) classes.push('selected')
+        if (selectedAnswer === index && !isCorrect) {
+            classes.push('selected')
+        }
 
         return classes.join(' ')
     }
+
+    const isLastQuestion = sessionMode === 'questions' && currentIndex + 1 >= questionCount
 
     return (
         <div className="quiz">
@@ -192,12 +221,15 @@ export default function Quiz() {
                 <div className="quiz-footer fade-in">
                     <div className="feedback-bar correct-feedback">
                         <span>{firstTryCorrect ? 'Correct!' : 'Got it!'}</span>
-                        <button className="next-btn" onClick={handleNext}>
-                            {sessionMode === 'questions' && currentIndex + 1 >= questionCount ? 'Finish' : 'Next →'}
-                        </button>
+                        {!isLastQuestion && (
+                            <button className="next-btn" onClick={handleNext}>
+                                Next →
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
         </div>
     )
 }
+
